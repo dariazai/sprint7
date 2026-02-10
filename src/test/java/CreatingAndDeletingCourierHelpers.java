@@ -1,15 +1,19 @@
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CreatingAndDeletingCourierHelpers {
 
-    public Response createNewСourier() {
+    public Response createNewCourier() {
+        return createNewCourier(CourierData.LOGIN, CourierData.PASSWORD, CourierData.FIRST_NAME);
+
+    }
+
+    public Response createNewCourier(String login, String password, String firstName) {
         RestAssured.baseURI = BaseURI.URL;
-                    CourierParameter courierData = new CourierParameter(CourierData.LOGIN,CourierData.PASSWORD,CourierData.FIRST_NAME);
+        CourierParameter courierData = new CourierParameter(login, password, firstName);
         Response response =
                 given()
                         .header("Content-type", "application/json")
@@ -17,13 +21,12 @@ public class CreatingAndDeletingCourierHelpers {
                         .body(courierData)
                         .when()
                         .post("/api/v1/courier");
-        response.then()
-                .statusCode(201)
-                .body("ok", Matchers.equalTo(true));
+        return response;
     }
-    public void deleteСourier() {
+
+    public void deleteCourier() {
         RestAssured.baseURI = BaseURI.URL;
-        CourierParameter courierData = new CourierParameter("toropishka","32145");
+        CourierParameter courierData = new CourierParameter(CourierData.LOGIN, CourierData.PASSWORD);
         Response response =
                 given()
                         .header("Content-type", "application/json")
