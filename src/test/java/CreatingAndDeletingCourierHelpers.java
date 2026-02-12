@@ -51,12 +51,12 @@ public class CreatingAndDeletingCourierHelpers {
 
     public Response userAuthorization(String login, String password) {
         RestAssured.baseURI = BaseURI.URL;
-        CourierParameter courierData = new CourierParameter(login, password);
+        AuthorizationParameter authorizationData = new AuthorizationParameter(login, password);
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(courierData)
+                        .body(authorizationData)
                         .when()
                         .post("/api/v1/courier/login");
         return response;

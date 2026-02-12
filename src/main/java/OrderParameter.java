@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class OrderParameter {
     private String firstName;
     private String lastName;
@@ -7,14 +9,14 @@ public class OrderParameter {
     private String rentTime;
     private String deliveryDate;
     private String comment;
-    private String color;
+    private List<String> color;
 
-    public String getAddress() {
-        return address;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -25,12 +27,12 @@ public class OrderParameter {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getMetroStation() {
@@ -73,15 +75,15 @@ public class OrderParameter {
         this.comment = comment;
     }
 
-    public String getColor() {
+    public List<String> getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(List<String> color) {
         this.color = color;
     }
 
-    public OrderParameter(String firstName, String lastName, String address, String metroStation, String phone, String rentTime, String deliveryDate, String comment, String color) {
+    public OrderParameter(String firstName, String lastName, String address, String metroStation, String phone, String rentTime, String deliveryDate, String comment, List<String> color) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -92,7 +94,4 @@ public class OrderParameter {
         this.comment = comment;
         this.color = color;
     }
-
-    public OrderParameter(){
-    };
 }

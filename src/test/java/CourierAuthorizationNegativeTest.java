@@ -26,7 +26,7 @@ public class CourierAuthorizationNegativeTest {
         userAuthorization.userAuthorization(null, CourierData.PASSWORD)
                 .then()
                 .statusCode(400)
-                .body("massage", equalTo("Недостаточно данных для входа"));
+                .body("message", equalTo("Недостаточно данных для входа"));
     }
 
     @Description("Авторизация с невалидными данными ")
