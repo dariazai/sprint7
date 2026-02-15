@@ -1,3 +1,5 @@
+package Courier;
+
 public class CourierParameter {
     private String login;
     private String password;
@@ -38,8 +40,6 @@ public class CourierParameter {
         this.password = password;
 
     }
-
     public CourierParameter() {
-
     }
 }

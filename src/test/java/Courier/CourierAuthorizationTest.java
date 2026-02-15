@@ -1,3 +1,6 @@
+package Courier;
+
+import Config.BaseTest;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,19 +11,31 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
-
-public class CourierAuthorizationNegativeTest {
+public class CourierAuthorizationTest extends BaseTest {
     CreatingAndDeletingCourierHelpers userAuthorization;
 
     @BeforeEach
+
     public void setUp() {
         userAuthorization = new CreatingAndDeletingCourierHelpers();
     }
 
+    @Description("Авторизация курьера. Позитивная проверка")
+    @Test
+    public void courierAuthorizationSuccessTest() {
+        CreatingAndDeletingCourierHelpers createCourier = new CreatingAndDeletingCourierHelpers();
+        createCourier.createNewCourier();
+        createCourier.userAuthorization()
+                .then()
+                .statusCode(200)
+                .body("id", notNullValue());
+        createCourier.deleteCourier();
+    }
+
     @Description("Авторизация курьера с неверным логином / паролем")
     @Test
-
     public void courierAuthorizationNoFullData() {
 
         userAuthorization.userAuthorization(null, CourierData.PASSWORD)
@@ -47,5 +62,3 @@ public class CourierAuthorizationNegativeTest {
                 Arguments.of("Eda", "325468"));
     }
 }
-
-

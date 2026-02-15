@@ -1,3 +1,5 @@
+package Courier;
+
 public class AuthorizationParameter {
     private String login;
     private String password;
@@ -22,5 +24,9 @@ public class AuthorizationParameter {
     public void setPassword(String password) {
         this.password = password;
     }
-    public AuthorizationParameter() {};
+
+    public AuthorizationParameter() {
+    }
+
+    ;
 }

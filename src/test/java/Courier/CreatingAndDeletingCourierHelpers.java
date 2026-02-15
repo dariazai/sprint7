@@ -1,21 +1,20 @@
+package Courier;
 
-import io.restassured.RestAssured;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
-
 import static org.hamcrest.Matchers.equalTo;
-
 
 public class CreatingAndDeletingCourierHelpers {
 
+    @Step("Создание нового курьера")
     public Response createNewCourier() {
         return createNewCourier(CourierData.LOGIN, CourierData.PASSWORD, CourierData.FIRST_NAME);
-
     }
 
+    @Step("Создание нового курьера")
     public Response createNewCourier(String login, String password, String firstName) {
-        RestAssured.baseURI = BaseURI.URL;
         CourierParameter courierData = new CourierParameter(login, password, firstName);
         Response response =
                 given()
@@ -27,15 +26,13 @@ public class CreatingAndDeletingCourierHelpers {
         return response;
     }
 
+    @Step("Удаление курьера")
     public void deleteCourier() {
-        RestAssured.baseURI = BaseURI.URL;
         CourierParameter courierData = new CourierParameter(CourierData.LOGIN, CourierData.PASSWORD);
         int id = userAuthorization()
 
                 .jsonPath()
                 .getInt("id");
-
-
         String deleteJson = "{\"id\":\"" + id + "\"}";
         Response deleteResponse =
                 given()
@@ -49,8 +46,8 @@ public class CreatingAndDeletingCourierHelpers {
                 .body("ok", equalTo(true));
     }
 
+    @Step("Авторизация пользовтеляв системе для получения ID")
     public Response userAuthorization(String login, String password) {
-        RestAssured.baseURI = BaseURI.URL;
         AuthorizationParameter authorizationData = new AuthorizationParameter(login, password);
         Response response =
                 given()
@@ -61,7 +58,9 @@ public class CreatingAndDeletingCourierHelpers {
                         .post("/api/v1/courier/login");
         return response;
     }
-    public Response userAuthorization(){
+
+    @Step("Авторизация пользовтеляв системе для получения ID")
+    public Response userAuthorization() {
         return userAuthorization(CourierData.LOGIN, CourierData.PASSWORD);
     }
 }

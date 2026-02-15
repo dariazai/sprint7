@@ -1,5 +1,11 @@
+package Courier;
+
+import Config.BaseTest;
 import io.qameta.allure.Description;
+
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,13 +15,29 @@ import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.equalTo;
 
-public class CreateCourierNegativeTest {
-    CreatingAndDeletingCourierHelpers createCourier = new CreatingAndDeletingCourierHelpers();
+public class CreateCourierTest extends BaseTest {
+    static CreatingAndDeletingCourierHelpers createCourier;
+
+    @BeforeAll
+    public static void setUp() {
+        createCourier = new CreatingAndDeletingCourierHelpers();
+    }
+
+    @Description("Создание курьера и удаление курьера. Позитивная проверка")
+    @Test
+    public void createNewCourier() {
+
+        createCourier.createNewCourier()
+                .then()
+                .statusCode(201)
+                .body("ok", Matchers.equalTo(true));
+        createCourier.deleteCourier();
+    }
 
     @Description("Попытка создания курьера с неполными данными")
     @ParameterizedTest
     @MethodSource("provider")
-    public void createCourierNegativeTest(String login, String password, String firstName) {
+    public void createCourierNotAllFieldsTransmittedTest(String login, String password, String firstName) {
         createCourier.createNewCourier(login, password, firstName)
                 .then()
                 .statusCode(400)
@@ -36,6 +58,7 @@ public class CreateCourierNegativeTest {
                 .then()
                 .statusCode(201)
                 .body("ok", Matchers.equalTo(true));
+
         createCourier.createNewCourier()
                 .then()
                 .statusCode(409)
