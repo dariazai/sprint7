@@ -37,7 +37,6 @@ public class CourierAuthorizationTest extends BaseTest {
     @Description("Авторизация курьера с неверным логином / паролем")
     @Test
     public void courierAuthorizationNoFullData() {
-
         userAuthorization.userAuthorization(null, CourierData.PASSWORD)
                 .then()
                 .statusCode(400)
@@ -48,7 +47,6 @@ public class CourierAuthorizationTest extends BaseTest {
     @ParameterizedTest
     @MethodSource("provider")
     public void courierAuthorizationNoValidData(String login, String password) {
-
         userAuthorization.userAuthorization(login, password)
                 .then()
                 .statusCode(404)

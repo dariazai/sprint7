@@ -49,14 +49,12 @@ public class CreatingAndDeletingCourierHelpers {
     @Step("Авторизация пользовтеляв системе для получения ID")
     public Response userAuthorization(String login, String password) {
         AuthorizationParameter authorizationData = new AuthorizationParameter(login, password);
-        Response response =
-                given()
-                        .header("Content-type", "application/json")
-                        .and()
-                        .body(authorizationData)
-                        .when()
-                        .post("/api/v1/courier/login");
-        return response;
+        return given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(authorizationData)
+                .when()
+                .post("/api/v1/courier/login");
     }
 
     @Step("Авторизация пользовтеляв системе для получения ID")
