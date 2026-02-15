@@ -11,13 +11,13 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <!-- версия AspectJ -->
+
         <aspectj.version>1.9.21</aspectj.version>
-        <!-- версия Allure -->
+
         <allure.version>2.25.0</allure.version>
-        <!-- версия JUnit -->
+
         <junit.version>5.10.0</junit.version>
-        <!-- версия Mockito -->
+
         <mockito.version>5.13.0</mockito.version>
     </properties>
 
@@ -40,7 +40,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <!-- модуль взаимодействия Allure и RestAssured -->
+
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
             <scope>test</scope>
@@ -97,7 +97,7 @@
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
-                <!-- настройка плагина maven-surefire-plugin -->
+
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.3</version>
@@ -117,7 +117,7 @@
                 <dependencies>
                 </dependencies>
             </plugin>
-            <!-- подключение плагина allure-maven для вызова функций Allure с помощью Maven -->
+
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
@@ -126,7 +126,7 @@
                     <reportVersion>${allure.version}</reportVersion>
                 </configuration>
             </plugin>
-            <!-- Плагин компилятора -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -136,7 +136,7 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-            <!-- Плагин JaCoCo внутри <plugins> -->
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
