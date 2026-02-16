@@ -38,8 +38,8 @@ public class CourierParameter {
     public CourierParameter(String login, String password) {
         this.login = login;
         this.password = password;
-
     }
+
     public CourierParameter() {
     }
 }
