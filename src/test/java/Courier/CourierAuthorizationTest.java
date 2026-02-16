@@ -34,16 +34,24 @@ public class CourierAuthorizationTest extends BaseTest {
         createCourier.deleteCourier();
     }
 
-    @Description("Авторизация курьера с неверным логином / паролем")
+    @Description("Авторизация курьера. Передется только пароль")
     @Test
-    public void courierAuthorizationNoFullData() {
+    public void courierAuthorizationWithoutLogin() {
         userAuthorization.userAuthorization(null, CourierData.PASSWORD)
                 .then()
                 .statusCode(400)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
+    @Description("Авторизация курьера. Передется только логин")
+    @Test
+    public void courierAuthorizationWithoutPassword() {
+        userAuthorization.userAuthorization(CourierData.LOGIN,null )
+                .then()
+                .statusCode(504)
+                .body (equalTo("Service unavailable"));
+    }
 
-    @Description("Авторизация с невалидными данными ")
+    @Description("Авторизация кульера с несуществующими данными ")
     @ParameterizedTest
     @MethodSource("provider")
     public void courierAuthorizationNoValidData(String login, String password) {
