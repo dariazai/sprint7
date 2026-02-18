@@ -1,6 +1,6 @@
-package Order;
+package order;
 
-import Config.BaseTest;
+import config.BaseTest;
 import io.qameta.allure.Description;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class CreateOrderTest extends BaseTest {
@@ -20,7 +21,7 @@ public class CreateOrderTest extends BaseTest {
     public void createNewOrder(List<String> color) {
         createOrder.createNewOrder(color)
                 .then()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("track", notNullValue());
     }
 
@@ -33,4 +34,3 @@ public class CreateOrderTest extends BaseTest {
         );
     }
 }
-

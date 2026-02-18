@@ -1,6 +1,6 @@
-package Courier;
+package courier;
 
-import Config.BaseTest;
+import config.BeforeAfterCourierAuth;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,16 +8,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.apache.http.HttpStatus.*;
+
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class CourierAuthorizationTest extends BaseTest {
+public class CourierAuthorization extends BeforeAfterCourierAuth {
     CreatingAndDeletingCourierHelpers userAuthorization;
 
     @BeforeEach
-
     public void setUp() {
         userAuthorization = new CreatingAndDeletingCourierHelpers();
     }
@@ -26,12 +27,10 @@ public class CourierAuthorizationTest extends BaseTest {
     @Test
     public void courierAuthorizationSuccessTest() {
         CreatingAndDeletingCourierHelpers createCourier = new CreatingAndDeletingCourierHelpers();
-        createCourier.createNewCourier();
         createCourier.userAuthorization()
                 .then()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("id", notNullValue());
-        createCourier.deleteCourier();
     }
 
     @Description("Авторизация курьера. Передется только пароль")
@@ -39,16 +38,17 @@ public class CourierAuthorizationTest extends BaseTest {
     public void courierAuthorizationWithoutLogin() {
         userAuthorization.userAuthorization(null, CourierData.PASSWORD)
                 .then()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
+
     @Description("Авторизация курьера. Передется только логин")
     @Test
     public void courierAuthorizationWithoutPassword() {
-        userAuthorization.userAuthorization(CourierData.LOGIN,null )
+        userAuthorization.userAuthorization(CourierData.LOGIN, null)
                 .then()
-                .statusCode(504)
-                .body (equalTo("Service unavailable"));
+                .statusCode(SC_GATEWAY_TIMEOUT)
+                .body(equalTo("Service unavailable"));
     }
 
     @Description("Авторизация кульера с несуществующими данными ")
@@ -57,7 +57,7 @@ public class CourierAuthorizationTest extends BaseTest {
     public void courierAuthorizationNoValidData(String login, String password) {
         userAuthorization.userAuthorization(login, password)
                 .then()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 

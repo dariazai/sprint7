@@ -1,4 +1,4 @@
-package Courier;
+package courier;
 
 public class CourierData {
     public static final String LOGIN = "toropishka";

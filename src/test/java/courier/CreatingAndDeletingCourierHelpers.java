@@ -1,9 +1,10 @@
-package Courier;
+package courier;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CreatingAndDeletingCourierHelpers {
@@ -42,7 +43,7 @@ public class CreatingAndDeletingCourierHelpers {
                         .when()
                         .delete("/api/v1/courier/" + id);
         deleteResponse.then()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("ok", equalTo(true));
     }
 

@@ -1,9 +1,10 @@
-package Order;
+package order;
 
-import Config.BaseTest;
+import config.BaseTest;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class ListOrderTest extends BaseTest {
@@ -13,8 +14,7 @@ public class ListOrderTest extends BaseTest {
         ListOrderHelpers getList = new ListOrderHelpers();
         getList.getListOrdersOnStation()
                 .then()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("orders", notNullValue());
     }
 }
-
